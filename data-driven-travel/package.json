@@ -1,0 +1,39 @@
+{
+  "name": "data-driven-travel",
+  "version": "1.0.0",
+  "private": true,
+  "description": "data-driven-travel",
+  "author": "Napon Taratan",
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "deploy": "gatsby build && gh-pages -d public"
+  },
+  "dependencies": {
+    "@mdx-js/react": "^3.0.0",
+    "autoprefixer": "^10.4.16",
+    "gatsby": "^5.12.4",
+    "gatsby-plugin-image": "^3.12.3",
+    "gatsby-plugin-mdx": "^5.12.3",
+    "gatsby-plugin-postcss": "^6.12.0",
+    "gatsby-plugin-react-leaflet": "^4.0.3",
+    "gatsby-plugin-sharp": "^5.12.3",
+    "gatsby-source-filesystem": "^5.12.1",
+    "gatsby-transformer-sharp": "^5.12.3",
+    "leaflet": "^1.9.4",
+    "postcss": "^8.4.31",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-leaflet": "^4.2.1",
+    "tailwindcss": "^3.3.5"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.0.0"
+  }
+}
