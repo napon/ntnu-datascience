@@ -107,7 +107,7 @@ const MapView = ({setShowMap}) => {
           zoom={6}
           scrollWheelZoom={false}
         >
-          <div style={{zIndex: 999}} className="absolute top-4 right-4 ">
+          <div style={{zIndex: 999}} className="absolute top-4 right-4 ml-4">
             <div className="flex content-end mb-4 place-content-end">
               <div onMouseOver={() => setShowDropdown(true)} onMouseLeave={() => setShowDropdown(false)}>
                 <button
