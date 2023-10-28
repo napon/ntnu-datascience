@@ -217,7 +217,8 @@ const IndexPage = () => {
                   <p className="mt-6 text-lg leading-8 text-gray-700">Discover the best time for your trip to Thailand 🇹🇭</p>
                   <p className="mt-2 text-sm text-gray-600">(NTNU Datascience Project)</p>
                   <div className="mt-6 flex items-center justify-center gap-x-6">
-                    <a href="" onClick={(e) => { e.preventDefault(); setShowMap(true); }} className="rounded-md bg-sky-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600">Get started →</a>
+                    <a href="" onClick={(e) => { e.preventDefault(); setShowMap(true); }} className="rounded-md bg-sky-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600">Get started</a>
+                    <a href="https://github.com/napon/ntnu-datascience" className="text-sm font-semibold hover:text-sky-600">View GitHub →</a>
                   </div>
                 </div>
               </div>
@@ -226,7 +227,6 @@ const IndexPage = () => {
               </div>
             </div>
           }
-
         </div>
       </div>
     </main>
