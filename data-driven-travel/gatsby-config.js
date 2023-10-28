@@ -2,7 +2,6 @@
  * @type {import('gatsby').GatsbyConfig}
  */
 module.exports = {
-  pathPrefix: "/ntnu-datascience",
   siteMetadata: {
     title: `Data Driven Travel`,
     siteUrl: `https://www.yourdomain.tld`
