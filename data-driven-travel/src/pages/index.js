@@ -53,8 +53,10 @@ const MapView = ({setShowMap}) => {
   const [selectedMonth, setSelectedMonth] = React.useState((new Date()).getMonth())
   const [hoverProvince, setHoverProvince] = React.useState(null)
 
+  const provinceLocationMap = React.useRef({});
+
   const mapData = React.useMemo(() => {
-    const output = {...DEFAULT_MAP_GEOJSON}
+    const output = JSON.parse(JSON.stringify(DEFAULT_MAP_GEOJSON))
     const monthCode = getMonthCode(selectedMonth)
     for (let i = 0; i < DEFAULT_MAP_GEOJSON.features.length; i++) {
       const feature = DEFAULT_MAP_GEOJSON.features[i]
@@ -65,13 +67,11 @@ const MapView = ({setShowMap}) => {
   }, [selectedMonth])
 
   const bestProvince = React.useMemo(() => {
-    const best = DEFAULT_MAP_GEOJSON.features.reduce((max, f) => {
+    const best = mapData.features.reduce((max, f) => {
       return f.properties.score >= max.properties.score ? f : max;
     }, { properties: { score: Number.MIN_SAFE_INTEGER }});
     return {...best.properties}
   }, [mapData])
-
-  const provinceLocationMap = React.useRef({});
 
   const highlightFeature = (e => {
     let layer = e.target;
@@ -96,8 +96,8 @@ const MapView = ({setShowMap}) => {
   }
 
   if (typeof window !== 'undefined') {
-    const selectedProvinceName = bestProvince?.CHA_NE?.replace(/([A-Z])/g, ' $1').trim()
-    const selectedProvince = bestProvince.CHA_NE
+    const bestProvinceName = bestProvince?.CHA_NE?.replace(/([A-Z])/g, ' $1').trim()
+    const bestProvinceCode = bestProvince.CHA_NE
     return (
       <>
         <MapContainer
@@ -122,7 +122,7 @@ const MapView = ({setShowMap}) => {
                 <div style={{zIndex: 999}} className={`z-10 shadow-lg place-content-start ${showDropdown ? "absolute" : "hidden"} bg-white divide-y divide-gray-100 rounded-lg shadow w-44 top-10`}>
                     <ul className="py-2 text-sm text-sky-600" aria-labelledby="dropdownDefaultButton">
                       { DISPLAY_MONTHS.map((month, idx) =>
-                        <li key={month} onClick={(e) => {setSelectedMonth(idx); setShowDropdown(false)}}>
+                        <li key={month} onClick={(e) => {setSelectedMonth(idx); setShowDropdown(false); }}>
                           <a className="block px-4 py-2 hover:bg-gray-100">{month}</a>
                         </li>)
                       }
@@ -151,7 +151,7 @@ const MapView = ({setShowMap}) => {
                   </>
                 :
                   <>
-                    <p className="mb-1">The best province to visit in <b>{DISPLAY_MONTHS[selectedMonth]}</b> is {selectedProvinceName}.</p>
+                    <p className="mb-1">The best province to visit in <b>{DISPLAY_MONTHS[selectedMonth]}</b> is {bestProvinceName}.</p>
                     <p>Rainfall: {Math.round(bestProvince.max_rainfall_mm, 2)}mm</p>
                     <p>Tourism Ratio: {Math.round(bestProvince.tourism_ratio, 2)}%</p>
                     <p>Overall Score: {Math.round(bestProvince.score * 100, 2)}%</p>
@@ -164,11 +164,13 @@ const MapView = ({setShowMap}) => {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <GeoJSON data={mapData}
+          <GeoJSON
+            key={selectedMonth}
+            data={mapData}
             onEachFeature={onEachFeature}
             style={style}
           />
-          {provinceLocationMap.current[selectedProvince] && <Marker position={provinceLocationMap.current[selectedProvince]}/>}
+          {provinceLocationMap.current[bestProvinceCode] && <Marker key={bestProvinceCode} position={provinceLocationMap.current[bestProvinceCode]}/>}
         </MapContainer>
       </>
     )
