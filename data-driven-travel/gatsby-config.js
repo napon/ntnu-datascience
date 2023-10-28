@@ -4,9 +4,9 @@
 module.exports = {
   siteMetadata: {
     title: `Data Driven Travel`,
-    siteUrl: `https://www.yourdomain.tld`
+    siteUrl: `https://ntnu-ds.napontaratan.com/`
   },
-  plugins: ["gatsby-plugin-postcss", "gatsby-plugin-image", "gatsby-plugin-mdx", "gatsby-plugin-sharp", "gatsby-transformer-sharp", {
+  plugins: ["gatsby-plugin-cname", "gatsby-plugin-postcss", "gatsby-plugin-image", "gatsby-plugin-sharp", "gatsby-transformer-sharp", {
     resolve: 'gatsby-source-filesystem',
     options: {
       "name": "images",

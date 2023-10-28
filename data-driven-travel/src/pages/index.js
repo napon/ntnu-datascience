@@ -5,8 +5,7 @@ import {
   GeoJSON,
   MapContainer,
   Marker,
-  TileLayer,
-  Tooltip
+  TileLayer
 } from "react-leaflet"
 
 import DEFAULT_MAP_GEOJSON from "../data/thailand.json"
