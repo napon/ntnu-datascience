@@ -52,8 +52,7 @@ const MapView = ({setShowMap}) => {
   const [showDropdown, setShowDropdown] = React.useState(false)
   const [selectedMonth, setSelectedMonth] = React.useState((new Date()).getMonth())
   const [hoverProvince, setHoverProvince] = React.useState(null)
-
-  const provinceLocationMap = React.useRef({});
+  const [markerLocation, setMarkerLocation] = React.useState(null)
 
   const mapData = React.useMemo(() => {
     const output = JSON.parse(JSON.stringify(DEFAULT_MAP_GEOJSON))
@@ -92,7 +91,9 @@ const MapView = ({setShowMap}) => {
         mouseover: highlightFeature,
         mouseout: resetHighlight
     });
-    provinceLocationMap.current[feature.properties.CHA_NE] = layer.getBounds().getCenter()
+    if (feature.properties.CHA_NE === bestProvince.CHA_NE) {
+      setMarkerLocation(layer.getBounds().getCenter())
+    }
   }
 
   if (typeof window !== 'undefined') {
@@ -170,7 +171,7 @@ const MapView = ({setShowMap}) => {
             onEachFeature={onEachFeature}
             style={style}
           />
-          {provinceLocationMap.current[bestProvinceCode] && <Marker key={bestProvinceCode} position={provinceLocationMap.current[bestProvinceCode]}/>}
+          {markerLocation && <Marker key={bestProvinceCode} position={markerLocation}/>}
         </MapContainer>
       </>
     )
